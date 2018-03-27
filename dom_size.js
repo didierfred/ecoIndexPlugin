@@ -10,6 +10,6 @@
 
 var dom_size=document.getElementsByTagName("*").length;
 console.log("local dom size=" + dom_size)
-var message = {"dom_size":dom_size};
-//localStorage.setItem('url',document);
+var message = {"dom_size":dom_size,"url":document.URL};
+console.log("url=" + document.URL);
 browser.runtime.sendMessage(JSON.stringify(message));
