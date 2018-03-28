@@ -78,7 +78,7 @@ function notify(message)
 	if (json_message.status=="off")
 		{
 		removeListener();
-		browser.browserAction.setIcon({ path: "icons/modify-32.png"});
+		browser.browserAction.setIcon({ path: "icons/ecoindex-32.png"});
 		console.log("Stop the analyse : nb_request="+ nb_request);
 		console.log("Stop the analyse : byte_total="+ byte_total);
 		localStorage.setItem('nb_request',nb_request);
@@ -92,7 +92,7 @@ function notify(message)
 	if (json_message.status=="on")
 		{
 		addListener();
-		browser.browserAction.setIcon({ path: "icons/modify-green-32.png"});
+		browser.browserAction.setIcon({ path: "icons/ecoindex-green-32.png"});
 		nb_request=0;
 		byte_total = 0;
 		console.log("Start the analyse");
@@ -139,7 +139,6 @@ function removeListener()
 	{
 	browser.webRequest.onBeforeRequest.removeListener(countRequest);
 	browser.webRequest.onBeforeRequest.removeListener(mesureSize);
-
 	}
 
 

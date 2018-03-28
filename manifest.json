@@ -6,7 +6,7 @@
   "version": "1.3",
   "homepage_url": "https://github.com/didierfred/SimpleModifyHeaders",
   "icons": {
-    "48": "icons/modify-48.png"
+    "48": "icons/ecoindex-48.png"
   },
 
   "permissions": [
@@ -18,7 +18,7 @@
   },
 
   "browser_action": {
-    "default_icon": "icons/modify-32.png",
+    "default_icon": "icons/ecoindex-32.png",
     "default_title": "EcoIndex",
     "default_popup": "popup/ecoindex.html"
   }
