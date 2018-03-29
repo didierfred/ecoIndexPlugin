@@ -13,7 +13,9 @@ Pour utiliser le module
 - Une fois la page chargée, cliquer l'icone Ei et puis sur le bouton "Stop"
 - Cliquer sur le bouton View Result 
 
-Attention pour avoir une mesure correcte, il faut préalablement vider le cache du navigateur ou faire un ctrl + reload de la page concerné 
+Attention pour avoir une mesure correcte, il faut préalablement vider le cache du navigateur ou faire un ctrl + reload de la page concernée.
+
+Il faut noter que l'utilisateur d'un bloqueur de publicité ou autre filtre à une influence sur le résultat.
 
 # Restrictions
 
