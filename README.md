@@ -15,7 +15,7 @@ Pour utiliser le module
 
 Attention pour avoir une mesure correcte, il faut préalablement vider le cache du navigateur ou faire un ctrl + reload de la page concernée.
 
-Il faut noter que l'utilisateur d'un bloqueur de publicité ou autre filtre à une influence sur le résultat.
+Il faut noter que l'utilisation d'un bloqueur de publicité ou autre filtre à une influence sur le résultat.
 
 # Restrictions
 
