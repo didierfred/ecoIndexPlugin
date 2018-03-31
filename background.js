@@ -41,6 +41,17 @@ var q_size= calculQuantile(quantiles_size,size);
 return Math.round(100 - 5 * (3*q_dom + 2*q_req + q_size)/6);
 }
 
+function getNote(eco_index)
+{
+if (eco_index > 75) return "A";
+if (eco_index > 65) return "B";
+if (eco_index > 50) return "C";
+if (eco_index > 35) return "D";
+if (eco_index > 20) return "E";
+if (eco_index > 5) return "F";
+return "G";
+}
+
 
 /*
 * Count the number of request
@@ -107,12 +118,30 @@ function notify(message)
 		var eco_index= calculEcoIndex(json_message.dom_size,nb_request,byte_total/100);
 		console.log("ecoindex=" + eco_index);
 		localStorage.setItem("eco_index",eco_index);
+		localStorage.setItem("note",getNote(eco_index));
+		storeInHistory(json_message.url,nb_request,byte_total,json_message.dom_size,eco_index,getNote(eco_index));
 		}
   	}
 
 /*
 
 */
+function storeInHistory(url,req,kbyte,domsize,eco_index,note)
+{
+var analyse_history;
+var string_analyse_history = localStorage.getItem("analyse_history");
+
+if (string_analyse_history)
+	{
+	analyse_history =JSON.parse(string_analyse_history);
+	analyse_history.push({url:url,req:req,kbyte:kbyte,domsize:domsize,eco_index:eco_index,note:note});
+	}
+else analyse_history = [{url:url,req:req,kbyte:kbyte,domsize:domsize,eco_index:eco_index,note:note}];
+
+localStorage.setItem("analyse_history",JSON.stringify(analyse_history));
+}
+
+
 function addListener()
 	{
 	var target ="<all_urls>";

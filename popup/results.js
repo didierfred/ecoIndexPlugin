@@ -11,14 +11,22 @@
 
 
 window.onload = function() {
-	var url= localStorage.getItem('url');
-	document.write("url=" + url + "<br/><br/>");
-	var result ="Nb request = " + localStorage.getItem('nb_request') + ", Size = " + localStorage.getItem('byte_total')/1000 + " KBytes , Dom size =" + localStorage.getItem("dom_size") + "<br/><br/>";
-	document.write(result);
-	var eco_index = localStorage.getItem('eco_index');
-	document.write("eco_index=" + eco_index );
 
-} ;
+	var url= localStorage.getItem('url');
+	var eco_index = localStorage.getItem('eco_index');
+	var note= localStorage.getItem('note');
+	var newDiv = document.createElement("div");
+
+	var html ="";
+	html+="url=" + url + "<br/><br/>";
+	html+="Nb request = " + localStorage.getItem('nb_request') + ", Size = " + localStorage.getItem('byte_total')/1000 + " KBytes , Dom size =" + localStorage.getItem("dom_size") + "<br/><br/>";
+	html+="eco_index=" + eco_index;
+	html+='<br/>Note : <span class="note">' + note + '</span>';
+console.log("html=" + html);
+	newDiv.innerHTML =html;
+	document.getElementById("result").appendChild(newDiv);
+
+} 
 
 
 
