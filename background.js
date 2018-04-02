@@ -115,11 +115,11 @@ function notify(message)
 		localStorage.setItem("dom_size",json_message.dom_size);
 	    console.log("url: " + json_message.url);
 		localStorage.setItem("url",json_message.url);
-		var eco_index= calculEcoIndex(json_message.dom_size,nb_request,byte_total/100);
+		var eco_index= calculEcoIndex(json_message.dom_size,nb_request,Math.round(byte_total/1000));
 		console.log("ecoindex=" + eco_index);
 		localStorage.setItem("eco_index",eco_index);
 		localStorage.setItem("note",getNote(eco_index));
-		storeInHistory(json_message.url,nb_request,byte_total,json_message.dom_size,eco_index,getNote(eco_index));
+		storeInHistory(json_message.url,nb_request,Math.round(byte_total/1000),json_message.dom_size,eco_index,getNote(eco_index));
 		}
   	}
 
@@ -134,9 +134,11 @@ var string_analyse_history = localStorage.getItem("analyse_history");
 if (string_analyse_history)
 	{
 	analyse_history =JSON.parse(string_analyse_history);
-	analyse_history.push({url:url,req:req,kbyte:kbyte,domsize:domsize,eco_index:eco_index,note:note});
+	analyse_history.reverse();
+	analyse_history.push({result_date:new Date(),url:url,req:req,kbyte:kbyte,domsize:domsize,eco_index:eco_index,note:note});
+	analyse_history.reverse();
 	}
-else analyse_history = [{url:url,req:req,kbyte:kbyte,domsize:domsize,eco_index:eco_index,note:note}];
+else analyse_history = [{date:new Date(),url:url,req:req,kbyte:kbyte,domsize:domsize,eco_index:eco_index,note:note}];
 
 localStorage.setItem("analyse_history",JSON.stringify(analyse_history));
 }
