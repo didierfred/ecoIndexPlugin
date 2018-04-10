@@ -65,7 +65,7 @@ nb_request++;
 }
 
 function mesureSize(details) {
- let filter = browser.webRequest.filterResponseData(details.requestId);
+let filter = browser.webRequest.filterResponseData(details.requestId);
 
   filter.ondata = event => {
     byte_total = byte_total + event.data.byteLength;
