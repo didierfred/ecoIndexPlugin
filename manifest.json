@@ -3,7 +3,7 @@
   "description": "EcoIndex ",
   "manifest_version": 2,
   "name": "ecoindex",
-  "version": "0.1",
+  "version": "0.2",
   "homepage_url": "https://github.com/didierfred/ecoIndexPlugin",
   "icons": {
     "48": "icons/ecoindex-48.png"

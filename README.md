@@ -1,4 +1,4 @@
-# Ecoindex V 0.1
+# Ecoindex V 0.2
 
 Extension pour firefox . 
 
@@ -17,11 +17,14 @@ Attention pour avoir une mesure correcte, il faut préalablement vider le cache 
 
 Il faut noter que l'utilisation d'un bloqueur de publicité ou autre filtre à une influence sur le résultat.
 
+
+On peut accéder à l'historique des mesures via le bouton historique . Il est possible de supprimer des élements de l'historique . 
+
 # Restrictions
 
-Ce module est en version expérimentale 0.1 .  
+Ce module est en version expérimentale .  
 
-A ce jour les quantiles pour la formule sont fictifs , l'ecoindex est donc estimatif 
+
 
 
 
