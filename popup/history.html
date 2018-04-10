@@ -21,23 +21,34 @@
 .button:hover {
     background-color: #0070A0; 
 }
+
+.colonne{
+	background-color: #008CBA; /* Blue */
+	color: white;
+	font-size: 14px;
+}
 </style>
   </head>
 
 <body>
-<H1> Ecoindex Plugin </H1>
+<H1> Ecoindex Plugin History </H1>
 
 
-<input type="button" class="button" style="width:100px"  id="start_stop" value="Start" ></input>
-<input type="button" class="button" style="width:100px" id="view_results" value="Résultat"></input>
-<input type="button" class="button" style="width:100px" id="view_history" value="Historique"></input>
+<table id="history">
+<tr class="colonne">
+<td>Date</td>
+<td>Url</td>
+<td>Nombre de requêtes</td> 
+<td>Taille (Kb) </td> 
+<td>Taille du DOM</td> 
+<td>EcoIndex</td> 
+<td>Note</td>
+<td></td>  
+</tr>
+</table>
 
-
-<script type="text/javascript" src="ecoindex.js"> </script> 
+<script type="text/javascript" src="history.js"> </script> 
 <br>
-<br>
-<iframe id="results" width="500" height="200" frameBorder="0"> 
-</iframe>
 
 </body>
 

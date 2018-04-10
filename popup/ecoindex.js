@@ -14,6 +14,7 @@ var started = "off";
 window.onload = function() {
 	document.getElementById('view_results').addEventListener('click',function (e) {view_results();});
 	document.getElementById('start_stop').addEventListener('click',function (e) {start_analyse();});
+	document.getElementById('view_history').addEventListener('click',function (e) {view_history();});
 	started = localStorage.getItem("started");
 	if (started=="on") document.getElementById("start_stop").value = "Stop";	
 } ;
@@ -45,3 +46,9 @@ function view_results()
 	myf.src="results.html";
 
 	}
+
+function view_history()
+	{
+	browser.tabs.create({url:"history.html"});
+	}
+
