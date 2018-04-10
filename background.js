@@ -14,9 +14,10 @@
 var nb_request=0;
 var byte_total = 0;
 
-var quantiles_dom = [10,20,40,80,120,180,250,350,450,600,800,1000,1250,1500,1750,2000,2300,2600,3000,3500,594000]
-var quantiles_req = [1,2,4,6,10,15,20,40,60,80,100,150,300,500,750,1000,1250,1500,2000,3000,4000]
-var quantiles_size = [50,100,200,300,500,750,1000,1300,1600,1900,2300,2800,3500,4300,5300,6500,8500,11000,14000,18000,22000]
+var quantile_dom = [0, 47, 75, 159, 233, 298, 358, 417, 476, 537, 603, 674, 753, 843, 949, 1076, 1237, 1459, 1801, 2479, 594601];
+var quantile_req = [0, 2, 15, 25, 34, 42, 49, 56, 63, 70, 78, 86, 95, 105, 117, 130, 147, 170, 205, 281, 3920];
+var quantile_size = [0, 1.37, 144.7, 319.53, 479.46, 631.97, 783.38, 937.91, 1098.62, 1265.47, 1448.32, 1648.27, 1876.08, 2142.06, 2465.37, 2866.31, 3401.59, 4155.73, 5400.08, 8037.54, 223212.26];
+  
 
 localStorage.setItem('started',"off");
 
@@ -104,7 +105,7 @@ function notify(message)
 		localStorage.setItem("dom_size",json_message.dom_size);
 	    console.log("url: " + json_message.url);
 		localStorage.setItem("url",json_message.url);
-		var eco_index= calculEcoIndex(json_message.dom_size,nb_request,byte_total/100);
+		var eco_index= calculEcoIndex(json_message.dom_size,nb_request,byte_total/1000);
 		console.log("ecoindex=" + eco_index);
 		localStorage.setItem("eco_index",eco_index);
 		}
