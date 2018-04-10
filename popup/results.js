@@ -21,7 +21,7 @@ window.onload = function() {
 	html+="url=" + url + "<br/><br/>";
 	html+="Nb request = " + localStorage.getItem('nb_request') + ", Size = " + localStorage.getItem('byte_total')/1000 + " KBytes , Dom size =" + localStorage.getItem("dom_size") + "<br/><br/>";
 	html+="eco_index=" + eco_index;
-	html+='<br/>Note : <span class="note">' + note + '</span>';
+	html+='<br/>Note : <span class="note ' + note +'">' + note + '</span>';
 console.log("html=" + html);
 	newDiv.innerHTML =html;
 	document.getElementById("result").appendChild(newDiv);
