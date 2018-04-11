@@ -142,7 +142,7 @@ if (string_analyse_history)
 	analyse_history.push({result_date:new Date(),url:url,req:req,kbyte:kbyte,domsize:domsize,eco_index:eco_index,note:note});
 	analyse_history.reverse();
 	}
-else analyse_history = [{date:new Date(),url:url,req:req,kbyte:kbyte,domsize:domsize,eco_index:eco_index,note:note}];
+else analyse_history = [{result_date:new Date(),url:url,req:req,kbyte:kbyte,domsize:domsize,eco_index:eco_index,note:note}];
 
 localStorage.setItem("analyse_history",JSON.stringify(analyse_history));
 }
