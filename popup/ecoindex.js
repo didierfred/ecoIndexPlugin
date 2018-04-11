@@ -49,6 +49,31 @@ function view_results()
 
 function view_history()
 	{
-	browser.tabs.create({url:"history.html"});
+	var promise_tabs =  browser.tabs.query({currentWindow: true});
+	promise_tabs.then(loadHistoryTab);
 	}
+	
+	
+function loadHistoryTab(tabs)
+{
+	var history_tab;
+	for (let tab of tabs) 
+		{
+		console.log(tab.url);
+		if (tab.url.startsWith(browser.extension.getURL(""))) history_tab = tab;
+		}
+    if (history_tab) 
+		{
+		console.log("history tab exist")
+		browser.tabs.reload(history_tab.id);
+		browser.tabs.update(history_tab.id,{active:true})
+		}
+	else	
+		{
+		browser.tabs.create({url:"history.html"});
+		console.log("no history tab")
+		}
+		
+
+}
 
