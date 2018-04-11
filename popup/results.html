@@ -4,23 +4,6 @@
   <head>
     <meta charset="utf-8">
       <style type="text/css"> 
-.button {
-    background-color: #008CBA; /* Blue */
-    border: none;
-    color: white;
-    padding: 1px 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-	border-radius: 4px;
-	transition-duration: 0.4s;
-	width: 100px ;
-}
-
-.button:hover {
-    background-color: #0070A0; 
-}
 
 
 .note {
@@ -61,13 +44,43 @@
     color:#fff;
 }
 
+.champ {
+width: 150px;
+color: white;
+background-color: #008CBA; /* Blue */
+}
+
+.valeur_champ {
+width: 300px;
+color: black;
+background-color: #DDDDFF; /* Blue */
+}
+
+th, td {
+  //  word-break: break-all;
+	 border: 1px solid white;
+	     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;    
+}
+
+table {
+ border-collapse: collapse;
+ table-layout: fixed;
+ width: 450px;
+}
+
 </style>
   </head>
 
 <body>
 
 
+<center>
+
 <p id="result"> </p>
+
+</center>
 <script type="text/javascript" src="results.js"> </script>
 
 
