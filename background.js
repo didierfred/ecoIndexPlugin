@@ -61,16 +61,43 @@ return "G";
 */
 function countRequest(e) 
 {
-nb_request++;
+
+// do not count url starting with data  
+if (!e.url.startsWith("data")) nb_request++;
+
+console.log("url N° " + nb_request+ ",id= " + e.requestID  + ",url= " + e.url);
 }
 
 function mesureSize(details) {
-let filter = browser.webRequest.filterResponseData(details.requestId);
 
-  filter.ondata = event => {
-    byte_total = byte_total + event.data.byteLength;
-    filter.write(event.data);
-  }
+
+let filter = browser.webRequest.filterResponseData(details.requestId);
+ 
+var gzip=false;
+gzip = details.responseHeaders.forEach(function(header){
+    if (header.name.toLowerCase() == "content-encoding")
+ 	{
+      	if (header.value.toLowerCase()== "gzip") gzip=true;
+    	}
+    });
+
+
+if (gzip)
+	{
+  	filter.ondata = event => {
+    	byte_total = byte_total + event.data.byteLength;
+    	console.log("Mesure size  id=" +  details.requestId + ",url = " + details.url + ",size=" + event.data.byteLength);
+    	filter.write(event.data);
+  		}
+	}
+else 
+	{
+  	filter.ondata = event => {
+    	byte_total = byte_total + event.data.byteLength/2;
+    	console.log("Mesure size  id=" +  details.requestId + ",url = " + details.url + ",size_unzip =" + event.data.byteLength   +"size_gzip=" +  event.data.byteLength/2);
+    	filter.write(event.data);
+  		}
+	}
 
   filter.onstop = event => {
     filter.disconnect();
@@ -155,10 +182,10 @@ function addListener()
 	browser.webRequest.onBeforeRequest.addListener(countRequest,
                                           {urls: [target]});
 
-	browser.webRequest.onBeforeRequest.addListener(
+	browser.webRequest.onHeadersReceived.addListener(
 									mesureSize,
 									{urls: [target]},
-									["blocking"]
+									["blocking", "responseHeaders"]
 									);
 
 	}
