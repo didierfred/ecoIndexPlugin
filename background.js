@@ -1,7 +1,7 @@
 
 
 /**
- END GZIP LIB 
+ START GZIP LIB 
 **/
 /** @license zlib.js 2012 - imaya [ https://github.com/imaya/zlib.js ] The MIT License */
 
@@ -64,7 +64,7 @@ var quantiles_size = [0, 1.37, 144.7, 319.53, 479.46, 631.97, 783.38, 937.91, 10
 
 localStorage.setItem('started',"off");
 
-// listen for start/stop and results
+// listen for start/stop and results messages
 browser.runtime.onMessage.addListener(notify);
 
 
@@ -77,6 +77,9 @@ for (var i=1;i<quantiles.length;i++)
 return quantiles.length;
 }
 
+/**
+Calcul ecoIndex based on formula from web site www.ecoindex.fr
+**/
 function calculEcoIndex(dom,req,size)
 {
 var q_dom= calculQuantile(quantiles_dom,dom);
@@ -85,6 +88,8 @@ var q_size= calculQuantile(quantiles_size,size);
 
 return Math.round(100 - 5 * (3*q_dom + 2*q_req + q_size)/6);
 }
+
+
 
 function getNote(eco_index)
 {
@@ -109,15 +114,17 @@ function countRequest(e)
 if (!e.url.startsWith("data")) 
 	{
 	nb_request++;
-	console.log("url N° " + nb_request+ ",id= " + e.requestID  + ",url= " + e.url);
+	//console.log("url N° " + nb_request+ ",id= " + e.requestID  + ",url= " + e.url);
 	}
 }
 
+
+/**
+Mesure the size of data receveived from the server in bytes 
+**/ 
 function mesureSize(details) {
 
-
 let filter = browser.webRequest.filterResponseData(details.requestId);
- 
 var gzip_header=false;
 details.responseHeaders.forEach(function(header){
     if (header.name.toLowerCase() == "content-encoding")
@@ -126,7 +133,7 @@ details.responseHeaders.forEach(function(header){
     	}
     });
 
-// if the data have been gzip 
+// if the data have been ungzip , gzip it again to know the real data volume been transfered
 if (gzip_header)
 	{
   	filter.ondata = event => {
@@ -160,7 +167,7 @@ else
 * Listen for message form ecoindex.js
 * if message is on : start the record 
 * if message is off : stop the record
-*
+* if message is dom_size, calcul eco_index and store results in localstorage
 **/
 function notify(message) 
 	{
@@ -173,6 +180,7 @@ function notify(message)
 		console.log("Stop the analyse : byte_total="+ byte_total);
 		localStorage.setItem('nb_request',nb_request);
 		localStorage.setItem('byte_total',byte_total);
+		// launch a script to calculate the dom_size 		
 		browser.tabs.executeScript({
 					file: "dom_size.js"
 					});
@@ -188,6 +196,7 @@ function notify(message)
 		console.log("Start the analyse");
 		return 	
 		}
+
 	if (json_message.dom_size)
 		{
 	    console.log("Dom Size received: "+ json_message.dom_size);
@@ -204,9 +213,9 @@ function notify(message)
 		}
   	}
 
-/*
-
-*/
+/**
+Add to the history the result of an analyse
+**/
 function storeInHistory(url,req,kbyte,domsize,eco_index,note)
 {
 var analyse_history;
@@ -224,6 +233,9 @@ else analyse_history = [{result_date:new Date(),url:url,req:req,kbyte:kbyte,doms
 localStorage.setItem("analyse_history",JSON.stringify(analyse_history));
 }
 
+/**
+Add listener to count request and mesure size of data receveived
+**/
 
 function addListener()
 	{
@@ -233,13 +245,11 @@ function addListener()
                                           {urls: [target]});
 
 	browser.webRequest.onHeadersReceived.addListener(
-									mesureSize,
-									{urls: [target]},
-									["blocking", "responseHeaders"]
-									);
-
+							mesureSize,
+							{urls: [target]},
+							["blocking", "responseHeaders"]
+							);
 	}
-
 
 
 

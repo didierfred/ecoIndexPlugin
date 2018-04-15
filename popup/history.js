@@ -22,7 +22,9 @@ window.onload = function() {
 
 
 
-
+/**
+For each line in history , write it on the page as a table line
+**/
 function view_history()
 	{
 	var string_analyse_history = localStorage.getItem("analyse_history");
@@ -93,6 +95,8 @@ function create_csv()
 		})
 	return csv;
 	}
+
+
 
 function export_data()
 	{
