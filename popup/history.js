@@ -14,7 +14,10 @@ var analyse_history =[];
 var corresponding_index_for_line =[];
 
 window.onload = function() {
- view_history();	
+
+	document.getElementById('delete_all_button').addEventListener('click',function (e) {delete_all();});
+	document.getElementById('export_button').addEventListener('click',function (e) {export_data();});
+ 	view_history();	
 } ;
 
 
@@ -43,7 +46,7 @@ function appendLine(result_date,url,request,size,dom,ecoindex,note)
 	html = html + "<td>" + dom + "</td>";
 	html = html + "<td>" + ecoindex + "</td>";
 	html = html + "<td>" + '<span class="note ' + note +'">' + note + '</span>'  + "</td>";
-	html = html + "<td><input class=\"button\" type=\"button\" value=\"Delete\" id=\"delete_button" + line_number + "\"></input> </td>";
+	html = html + "<td><input class=\"button\" type=\"button\" value=\"Effacer\" id=\"delete_button" + line_number + "\"></input> </td>";
 
 	var newTR = document.createElement("tr");
 	newTR.id="line" + line_number;
@@ -69,4 +72,42 @@ function delete_line(line_number_to_delete)
 		corresponding_index_for_line[i] = corresponding_index_for_line[i]  - 1; 
 		}
 	localStorage.setItem("analyse_history",JSON.stringify(analyse_history));
+	}
+
+
+function delete_all()
+	{
+	if (window.confirm("Voulez vous vraiment supprimer tout l'historique ?")) 
+		{
+		localStorage.removeItem("analyse_history");
+		document.location.reload();
+		}
+	}
+
+function create_csv()
+	{
+	var csv="Date;Url;Nombre requêtes;Taille(kb);Taille du dom;ecoIndex;Note\n";
+	analyse_history.forEach(function(analyse)  
+		{
+		csv += analyse.result_date + ";\"" + analyse.url + "\";" + analyse.req +";" + analyse.kbyte + ";" + analyse.domsize + ";" + analyse.eco_index + ";" + analyse.note + "\n";
+		})
+	return csv;
+	}
+
+function export_data()
+	{
+	// Create file data
+	var to_export= create_csv();
+	
+	// Create file to save 
+	var a         = document.createElement('a');
+	a.href        = 'data:attachment/csv,' +  encodeURIComponent(to_export);
+	a.target      = 'download';
+	a.download    = 'ecoindex.csv';
+	
+	// use iframe "download" to put the link (in order not to be redirect in the parent frame)
+	var myf = document.getElementById("download");
+	myf = myf.contentWindow.document || myf.contentDocument;
+	myf.body.appendChild(a);
+	a.click();
 	}

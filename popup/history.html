@@ -70,8 +70,19 @@
   </head>
 
 <body>
+<table>
+<tr>
+<td width=85%>
 <H1> Ecoindex Plugin History </H1>
-
+</td>
+<td width="15%">
+<div align="right"> 
+<input type="button" class="button" style="width:100px" id="delete_all_button" value="Effacer tout" ></input> 
+<input type="button" class="button" style="width:100px" id="export_button" value="Exporter" > </input> 
+</div>
+</td>
+</table>
+<br>
 
 <table id="history">
 <tr class="colonne">
@@ -88,7 +99,8 @@
 
 <script type="text/javascript" src="history.js"> </script> 
 <br>
-
+<iframe id="download" width="0" height="0" frameBorder="0"> 
+</iframe>
 </body>
 
 </html>

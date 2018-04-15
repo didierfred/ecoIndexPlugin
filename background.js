@@ -106,9 +106,11 @@ function countRequest(e)
 {
 
 // do not count url starting with data  
-if (!e.url.startsWith("data")) nb_request++;
-
-//console.log("url N° " + nb_request+ ",id= " + e.requestID  + ",url= " + e.url);
+if (!e.url.startsWith("data")) 
+	{
+	nb_request++;
+	console.log("url N° " + nb_request+ ",id= " + e.requestID  + ",url= " + e.url);
+	}
 }
 
 function mesureSize(details) {
