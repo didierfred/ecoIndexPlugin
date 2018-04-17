@@ -19,7 +19,7 @@ Il faut noter que l'utilisation d'un bloqueur de publicité ou autre filtre à u
 
 ## Historique des mesures
 
-On peut accéder à l'historique des mesures via le bouton historique . Il est possible de supprimer tout ou partie de l'historique . 
+On peut accéder à l'historique des mesures via le bouton historique . Il est possible de supprimer tout ou partie de l'historique. 
 
 Un export sous format csv de l'historique est disponible.
 
