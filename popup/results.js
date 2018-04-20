@@ -15,7 +15,7 @@ window.onload = function() {
 	var url= localStorage.getItem('url');
 	var eco_index = localStorage.getItem('eco_index');
 	var note= localStorage.getItem('note');
-	var newDiv = document.createElement("div");
+	//var newDiv = document.createElement("div");
 
 	var html ="<table class=\"table table-condensed\"> <tbody>";
 	html+="<tr><td>Url</td><td> " + url + "</td></tr>";
@@ -25,8 +25,11 @@ window.onload = function() {
 	html+="<tr><td>Eco Index </td><td>" + eco_index + "</td></tr>";
 	html+='<tr><td>Note </td><td> <span class="note ' + note +'">' + note + '</span></td></tr></tbody></table>';
 console.log("html=" + html);
-	newDiv.innerHTML =html;
-	document.getElementById("result").appendChild(newDiv);
+	// newDiv.innerHTML =html;
+	
+	document.getElementById("result").innerHTML=html;
+	
+	//document.getElementById("result").appendChild(newDiv);
 
 } 
 
