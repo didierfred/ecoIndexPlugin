@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 
-<html>
-  <head>
-    <meta charset="utf-8">
-      <style type="text/css"> 
+<html lang="fr">
+	<head>
+  <title>EcoIndex Plugin History</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <style type="text/css"> 
 .button {
     background-color: #008CBA; /* Blue */
     border: none;
@@ -70,34 +73,34 @@
   </head>
 
 <body>
-<table>
-<tr>
-<td width="80%">
-<H1> Ecoindex Plugin History </H1>
-</td>
-<td>
-<div align="right"> 
-<input type="button" class="button" style="width:100px" id="delete_all_button" value="Effacer tout" ></input> 
-<input type="button" class="button" style="width:100px" id="export_button" value="Exporter" > </input> 
+
+<div class="container-fluid">
+<div class="row">
+  <div class="col-sm-6"> <h1>Ecoindex Plugin History</h1>  </div>
+  <div class="col-sm-6" align="right"><br/>
+		<input type="button" class="btn btn-primary btn-sm"  id="delete_all_button" value="Effacer tout" ></input> 
+		<input type="button" class="btn btn-primary btn-sm"  id="export_button" value="Exporter" > </input>   
+  </div>
 </div>
-</td>
-</tr>
-</table>
 <br>
 
-<table id="history">
-<tr class="colonne">
-<td>Date</td>
-<td>Url</td>
-<td>Nombre de requêtes</td> 
-<td>Taille (Kb) </td> 
-<td>Taille du DOM</td> 
-<td>EcoIndex</td> 
-<td>Note</td>
-<td></td>  
+<table class="table table-condensed " >
+<thead>
+<tr>
+<th>Date</th>
+<th>Url</th>
+<th>Nombre de requêtes</th>
+<th>Taille (Kb) </th> 
+<th>Taille du DOM</th> 
+<th>EcoIndex</th> 
+<th>Note</th>
+<th></th>  
 </tr>
+</thead>
+<tbody id="history">
+</tbody>
 </table>
-
+</div>
 <script type="text/javascript" src="history.js"> </script> 
 <br>
 <iframe id="download" width="0" height="0" frameBorder="0"> 

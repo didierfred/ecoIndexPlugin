@@ -17,13 +17,13 @@ window.onload = function() {
 	var note= localStorage.getItem('note');
 	var newDiv = document.createElement("div");
 
-	var html ="<table>";
-	html+="<tr><td class=\"champ\">Url</td><td class=\"valeur_champ\"> " + url + "</td></tr>";
-	html+="<tr><td class=\"champ\">Nombre de  requêtes </td><td class=\"valeur_champ\">" + localStorage.getItem('nb_request')  + "</td></tr>";
-	html+="<tr><td class=\"champ\">Taille   </td><td class=\"valeur_champ\">" + localStorage.getItem('byte_total')/1000 + " KBytes </td></tr>"
-	html+="<tr><td class=\"champ\">Taille du DOM  </td><td class=\"valeur_champ\">" + localStorage.getItem("dom_size") + "</td></tr>";
-	html+="<tr><td class=\"champ\">Eco Index </td><td class=\"valeur_champ\">" + eco_index + "</td></tr>";
-	html+='<tr><td class=\"champ\">Note </td><td class=\"valeur_champ\"> <span class="note ' + note +'">' + note + '</span></td></tr></table>';
+	var html ="<table class=\"table table-condensed\"> <tbody>";
+	html+="<tr><td>Url</td><td> " + url + "</td></tr>";
+	html+="<tr><td>Nombre de  requêtes </td><td>" + localStorage.getItem('nb_request')  + "</td></tr>";
+	html+="<tr><td>Taille   </td><td>" + localStorage.getItem('byte_total')/1000 + " KBytes </td></tr>"
+	html+="<tr><td>Taille du DOM  </td><td>" + localStorage.getItem("dom_size") + "</td></tr>";
+	html+="<tr><td>Eco Index </td><td>" + eco_index + "</td></tr>";
+	html+='<tr><td>Note </td><td> <span class="note ' + note +'">' + note + '</span></td></tr></tbody></table>';
 console.log("html=" + html);
 	newDiv.innerHTML =html;
 	document.getElementById("result").appendChild(newDiv);

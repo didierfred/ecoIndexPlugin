@@ -48,7 +48,7 @@ function appendLine(result_date,url,request,size,dom,ecoindex,note)
 	html = html + "<td>" + dom + "</td>";
 	html = html + "<td>" + ecoindex + "</td>";
 	html = html + "<td>" + '<span class="note ' + note +'">' + note + '</span>'  + "</td>";
-	html = html + "<td><input class=\"button\" type=\"button\" value=\"Effacer\" id=\"delete_button" + line_number + "\"></input> </td>";
+	html = html + "<td><input class=\"btn btn-primary btn-xs\" type=\"button\" value=\"Effacer\" id=\"delete_button" + line_number + "\"></input> </td>";
 
 	var newTR = document.createElement("tr");
 	newTR.id="line" + line_number;
