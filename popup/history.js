@@ -41,14 +41,18 @@ function view_history()
 **/
 function appendLine(result_date,url,request,size,dom,ecoindex,note) 
 	{
-	var html = "<td>" + result_date + "</td>";
+	var date = new Date(result_date);
+	var html = "<td>" + date.toLocaleDateString() + " " + date.toLocaleTimeString() + "</td>";
 	html = html + "<td>" + url + "</td>";
 	html = html + "<td>" + request + "</td>";
 	html = html + "<td>" + size + "</td>";
 	html = html + "<td>" + dom + "</td>";
 	html = html + "<td>" + ecoindex + "</td>";
 	html = html + "<td>" + '<span class="note ' + note +'">' + note + '</span>'  + "</td>";
-	html = html + "<td><input class=\"btn btn-primary btn-xs\" type=\"button\" value=\"Effacer\" id=\"delete_button" + line_number + "\"></input> </td>";
+
+	html = html +  "</td> <a href=\"#\" id=\"delete_button" + line_number + "\" class=\"btn btn-primary btn-sm\"> <span class=\"glyphicon glyphicon-trash\"></span> Effacer </a></td>"; 
+
+//	html = html + "<td><input class=\"btn btn-primary btn-xs\" type=\"button\" value=\"Effacer\" id=\"delete_button" + line_number + "\"></input> </td>";
 
 	var newTR = document.createElement("tr");
 	newTR.id="line" + line_number;

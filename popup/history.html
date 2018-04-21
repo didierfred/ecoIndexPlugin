@@ -5,31 +5,9 @@
   <title>EcoIndex Plugin History</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="bootstrap.min.css">
+  <link rel="stylesheet" href="bootstrap.min.css"> 
+  
   <style type="text/css"> 
-.button {
-    background-color: #008CBA; /* Blue */
-    border: none;
-    color: white;
-    padding: 1px 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-	border-radius: 4px;
-	transition-duration: 0.4s;
-	width: 100px ;
-}
-
-.button:hover {
-    background-color: #0070A0; 
-}
-
-.colonne{
-	background-color: #008CBA; /* Blue */
-	color: white;
-	font-size: 14px;
-}
 
 .note {
     display:inline-block;
@@ -78,8 +56,15 @@
 <div class="row">
   <div class="col-sm-6"> <h1>Ecoindex Plugin History</h1>  </div>
   <div class="col-sm-6" align="right"><br/>
-		<input type="button" class="btn btn-primary btn-sm"  id="delete_all_button" value="Effacer tout" ></input> 
-		<input type="button" class="btn btn-primary btn-sm"  id="export_button" value="Exporter" > </input>   
+		
+	<a href="#" id="delete_all_button" class="btn btn-primary btn-sm">
+          <span class="glyphicon glyphicon-trash"></span> Effacer tout
+        </a> 
+
+	<a href="#" id="export_button" class="btn btn-primary btn-sm">
+          <span class="glyphicon glyphicon-download-alt"></span> Exporter
+        </a> 
+		
   </div>
 </div>
 <br>
