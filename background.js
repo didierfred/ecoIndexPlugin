@@ -221,14 +221,14 @@ function notify(message)
 		localStorage.setItem("water",water);
 
 
-		storeInHistory(json_message.url,nb_request,Math.round(byte_total/1000),json_message.dom_size,eco_index,getNote(eco_index));
+		storeInHistory(json_message.url,nb_request,Math.round(byte_total/1000),json_message.dom_size,ges,water,eco_index,getNote(eco_index));
 		}
   	}
 
 /**
 Add to the history the result of an analyse
 **/
-function storeInHistory(url,req,kbyte,domsize,eco_index,note)
+function storeInHistory(url,req,kbyte,domsize,ges,water,eco_index,note)
 {
 var analyse_history;
 var string_analyse_history = localStorage.getItem("analyse_history");
@@ -237,10 +237,10 @@ if (string_analyse_history)
 	{
 	analyse_history =JSON.parse(string_analyse_history);
 	analyse_history.reverse();
-	analyse_history.push({result_date:new Date(),url:url,req:req,kbyte:kbyte,domsize:domsize,eco_index:eco_index,note:note});
+	analyse_history.push({result_date:new Date(),url:url,req:req,kbyte:kbyte,domsize:domsize,ges:ges,water:water,eco_index:eco_index,note:note});
 	analyse_history.reverse();
 	}
-else analyse_history = [{result_date:new Date(),url:url,req:req,kbyte:kbyte,domsize:domsize,eco_index:eco_index,note:note}];
+else analyse_history = [{result_date:new Date(),url:url,req:req,kbyte:kbyte,domsize:domsize,ges:ges,water:water,eco_index:eco_index,note:note}];
 
 localStorage.setItem("analyse_history",JSON.stringify(analyse_history));
 }
