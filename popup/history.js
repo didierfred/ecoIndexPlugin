@@ -32,14 +32,14 @@ function view_history()
 	if (string_analyse_history)
 		{
 		analyse_history =JSON.parse(string_analyse_history);
-		for (var to_add of analyse_history) appendLine(to_add.result_date,to_add.url,to_add.req,to_add.kbyte,to_add.domsize,to_add.eco_index,to_add.note);
+		for (var to_add of analyse_history) appendLine(to_add.result_date,to_add.url,to_add.req,to_add.kbyte,to_add.domsize,to_add.ges,to_add.water,to_add.eco_index,to_add.note);
 		}
 	}
 
 /**
 * Add a new history line on the UI 
 **/
-function appendLine(result_date,url,request,size,dom,ecoindex,note) 
+function appendLine(result_date,url,request,size,dom,ges,water,ecoindex,note) 
 	{
 	var date = new Date(result_date);
 	var html = "<td>" + date.toLocaleDateString() + " " + date.toLocaleTimeString() + "</td>";
@@ -47,6 +47,8 @@ function appendLine(result_date,url,request,size,dom,ecoindex,note)
 	html = html + "<td>" + request + "</td>";
 	html = html + "<td>" + size + "</td>";
 	html = html + "<td>" + dom + "</td>";
+	html = html + "<td>" + ges + "</td>";
+	html = html + "<td>" + water + "</td>";
 	html = html + "<td>" + ecoindex + "</td>";
 	html = html + "<td>" + '<span class="note ' + note +'">' + note + '</span>'  + "</td>";
 
@@ -92,10 +94,10 @@ function delete_all()
 
 function create_csv()
 	{
-	var csv="Date;Url;Nombre requêtes;Taille(kb);Taille du dom;ecoIndex;Note\n";
+	var csv="Date;Url;Nombre requêtes;Taille(kb);Taille du dom;GES;Eau;ecoIndex;Note\n";
 	analyse_history.forEach(function(analyse)  
 		{
-		csv += analyse.result_date + ";\"" + analyse.url + "\";" + analyse.req +";" + analyse.kbyte + ";" + analyse.domsize + ";" + analyse.eco_index + ";" + analyse.note + "\n";
+		csv += analyse.result_date + ";\"" + analyse.url + "\";" + analyse.req +";" + analyse.kbyte + ";" + analyse.domsize + ";" + analyse.ges + ";" + analyse.water + ";" + analyse.eco_index + ";" + analyse.note + "\n";
 		})
 	return csv;
 	}

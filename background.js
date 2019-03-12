@@ -1,7 +1,7 @@
 
 
 /**
- START GZIP LIB 
+ START GZIP LIB
 **/
 /** @license zlib.js 2012 - imaya [ https://github.com/imaya/zlib.js ] The MIT License */
 
@@ -39,13 +39,13 @@ La.prototype.g=function(){var f,e,c,a,b,g,l,m,d=new (C?Uint8Array:Array)(32768),
 m>>>24&255;this.i=x;C&&h<d.length&&(this.a=d=d.subarray(0,h));return d};var Pa=255,Oa=2,Ma=8,Na=16;fa("Zlib.Gzip",La);fa("Zlib.Gzip.prototype.compress",La.prototype.g);}).call(this);
 
 /**
- END GZIP LIB 
+ END GZIP LIB
 **/
 
 
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. 
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  *
  * @author didierfred@gmail.com
  * @version 0.2
@@ -60,7 +60,7 @@ var byte_total = 0;
 var quantiles_dom = [0, 47, 75, 159, 233, 298, 358, 417, 476, 537, 603, 674, 753, 843, 949, 1076, 1237, 1459, 1801, 2479, 594601];
 var quantiles_req = [0, 2, 15, 25, 34, 42, 49, 56, 63, 70, 78, 86, 95, 105, 117, 130, 147, 170, 205, 281, 3920];
 var quantiles_size = [0, 1.37, 144.7, 319.53, 479.46, 631.97, 783.38, 937.91, 1098.62, 1265.47, 1448.32, 1648.27, 1876.08, 2142.06, 2465.37, 2866.31, 3401.59, 4155.73, 5400.08, 8037.54, 223212.26];
-  
+
 
 localStorage.setItem('started',"off");
 
@@ -107,11 +107,11 @@ return "G";
 * Count the number of request
 *
 */
-function countRequest(e) 
+function countRequest(e)
 {
 
-// do not count url starting with data  
-if (!e.url.startsWith("data")) 
+// do not count url starting with data
+if (!e.url.startsWith("data"))
 	{
 	nb_request++;
 	//console.log("url N° " + nb_request+ ",id= " + e.requestID  + ",url= " + e.url);
@@ -120,8 +120,8 @@ if (!e.url.startsWith("data"))
 
 
 /**
-Mesure the size of data receveived from the server in bytes 
-**/ 
+Mesure the size of data receveived from the server in bytes
+**/
 function mesureSize(details) {
 
 let filter = browser.webRequest.filterResponseData(details.requestId);
@@ -137,17 +137,17 @@ details.responseHeaders.forEach(function(header){
 if (gzip_header)
 	{
   	filter.ondata = event => {
-    	
-	// Gzip data to know the real transfer Kb 
+
+	// Gzip data to know the real transfer Kb
 	var gzip = new Zlib.Gzip(new Uint8Array(event.data));
-	var compressed = gzip.compress();    	
+	var compressed = gzip.compress();
 	//console.log ("Mesure size after gzip  id=" +  details.requestId + ",url = " + details.url + " size=" + event.data.byteLength + " gzipsize=" + compressed.length);
 	byte_total = byte_total + compressed.length;
 	filter.write(event.data);
   		}
 	}
 
-else 
+else
 	{
   	filter.ondata = event => {
     	byte_total = byte_total + event.data.byteLength;
@@ -158,18 +158,18 @@ else
 
   filter.onstop = event => {
     filter.disconnect();
-  } 
+  }
 
   return {};
 }
 
 /*
 * Listen for message form ecoindex.js
-* if message is on : start the record 
+* if message is on : start the record
 * if message is off : stop the record
 * if message is dom_size, calcul eco_index and store results in localstorage
 **/
-function notify(message) 
+function notify(message)
 	{
 	var json_message = JSON.parse(message);
 	if (json_message.status=="off")
@@ -180,7 +180,7 @@ function notify(message)
 		console.log("Stop the analyse : byte_total="+ byte_total);
 		localStorage.setItem('nb_request',nb_request);
 		localStorage.setItem('byte_total',byte_total);
-		// launch a script to calculate the dom_size 		
+		// launch a script to calculate the dom_size
 		browser.tabs.executeScript({
 					file: "dom_size.js"
 					});
@@ -194,7 +194,7 @@ function notify(message)
 		nb_request=0;
 		byte_total = 0;
 		console.log("Start the analyse");
-		return 	
+		return
 		}
 
 	if (json_message.dom_size)
@@ -209,14 +209,26 @@ function notify(message)
 		console.log("ecoindex=" + eco_index);
 		localStorage.setItem("eco_index",eco_index);
 		localStorage.setItem("note",getNote(eco_index));
-		storeInHistory(json_message.url,nb_request,Math.round(byte_total/1000),json_message.dom_size,eco_index,getNote(eco_index));
+
+		// GES & Water
+		var ges = Math.round(100 * (2 + 2 * (50 - eco_index) / 100)) / 100;
+		console.log("ges", ges);
+		localStorage.setItem("ges",ges);
+
+		
+		var water = Math.round(100 * (3 + 3 * (50 - eco_index) / 100)) / 100;
+		console.log("water", water);
+		localStorage.setItem("water",water);
+
+
+		storeInHistory(json_message.url,nb_request,Math.round(byte_total/1000),json_message.dom_size,ges,water,eco_index,getNote(eco_index));
 		}
   	}
 
 /**
 Add to the history the result of an analyse
 **/
-function storeInHistory(url,req,kbyte,domsize,eco_index,note)
+function storeInHistory(url,req,kbyte,domsize,ges,water,eco_index,note)
 {
 var analyse_history;
 var string_analyse_history = localStorage.getItem("analyse_history");
@@ -225,10 +237,10 @@ if (string_analyse_history)
 	{
 	analyse_history =JSON.parse(string_analyse_history);
 	analyse_history.reverse();
-	analyse_history.push({result_date:new Date(),url:url,req:req,kbyte:kbyte,domsize:domsize,eco_index:eco_index,note:note});
+	analyse_history.push({result_date:new Date(),url:url,req:req,kbyte:kbyte,domsize:domsize,ges:ges,water:water,eco_index:eco_index,note:note});
 	analyse_history.reverse();
 	}
-else analyse_history = [{result_date:new Date(),url:url,req:req,kbyte:kbyte,domsize:domsize,eco_index:eco_index,note:note}];
+else analyse_history = [{result_date:new Date(),url:url,req:req,kbyte:kbyte,domsize:domsize,ges:ges,water:water,eco_index:eco_index,note:note}];
 
 localStorage.setItem("analyse_history",JSON.stringify(analyse_history));
 }
@@ -240,7 +252,7 @@ Add listener to count request and mesure size of data receveived
 function addListener()
 	{
 	var target ="<all_urls>";
-	
+
 	browser.webRequest.onBeforeRequest.addListener(countRequest,
                                           {urls: [target]});
 
@@ -254,7 +266,7 @@ function addListener()
 
 
 /*
-* Remove the two listener 
+* Remove the two listener
 *
 */
 function removeListener()
