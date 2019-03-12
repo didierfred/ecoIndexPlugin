@@ -22,8 +22,8 @@ window.onload = function() {
 	html+="<tr><td>Nombre de  requêtes </td><td>" + localStorage.getItem('nb_request')  + "</td></tr>";
 	html+="<tr><td>Taille   </td><td>" + localStorage.getItem('byte_total')/1000 + " KBytes </td></tr>";
 	html+="<tr><td>Taille du DOM  </td><td>" + localStorage.getItem("dom_size") + "</td></tr>";
-    html+="<tr><td>GES  </td><td>" + localStorage.getItem("ges") + "</td></tr>";
-    html+="<tr><td>Eau  </td><td>" + localStorage.getItem("water") + "</td></tr>";
+    html+="<tr><td>GES </td><td>" + localStorage.getItem("ges") + " gCO2e </td></tr>";
+    html+="<tr><td>Eau  </td><td>" + localStorage.getItem("water") + " cl </td></tr>";
 	html+="<tr><td>Eco Index </td><td>" + eco_index + "</td></tr>";
 	html+='<tr><td>Note </td><td> <span class="note ' + note +'">' + note + '</span></td></tr></tbody></table>';
 	
