@@ -1,0 +1,26 @@
+{
+
+  "description": "EcoIndex ",
+  "manifest_version": 2,
+  "name": "ecoindex",
+  "version": "0.3.1",
+  "homepage_url": "https://github.com/didierfred/ecoIndexPlugin",
+  "icons": {
+    "48": "icons/ecoindex-48.png"
+  },
+
+  "permissions": [
+    "activeTab","tabs","storage","webRequest", "webRequestBlocking", "<all_urls>" 
+  ],
+  
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "browser_action": {
+    "default_icon": "icons/ecoindex-32.png",
+    "default_title": "EcoIndex",
+    "default_popup": "popup/ecoindex.html"
+  }
+
+}
