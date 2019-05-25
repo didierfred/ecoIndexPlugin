@@ -16,7 +16,7 @@ window.onload = function() {
 	document.getElementById('start_stop').addEventListener('click',function (e) {start_analyse();});
 	document.getElementById('view_history').addEventListener('click',function (e) {view_history();});
 	started = localStorage.getItem("started");
-	if (started=="on") document.getElementById("start_stop").value = "Stop";	
+	if (started=="on") setButtonText(browser.i18n.getMessage("stopButton"));	
 } ;
 
 
@@ -28,17 +28,29 @@ function start_analyse()
 		{
 		localStorage.setItem("started","on");
 		started = "on";
-		document.getElementById("start_stop").value = "Stop";		
+		//document.getElementById("start_stop").value = "Stop";		
+		setButtonText(browser.i18n.getMessage("stopButton"));
 		}
 	else 
 		{
 		localStorage.setItem("started","off");
 		started = "off";
-		document.getElementById("start_stop").value = "Start";
+		setButtonText(browser.i18n.getMessage("startButton"));
+		//document.getElementById("start_stop").value = "Start";
 		message = {status:"off"};
 		}
 	browser.runtime.sendMessage(JSON.stringify(message));
 	}
+
+
+function setButtonText(text)
+{
+	const doc = document.getElementById("start_stop");
+	doc.removeChild(doc.firstChild);
+	doc.appendChild(document.createTextNode(text));
+}
+
+
 
 function view_results()
 	{

@@ -54,15 +54,15 @@
 
 <div class="container-fluid">
 <div class="row">
-  <div class="col-sm-6"> <h1>Ecoindex Plugin History</h1>  </div>
+  <div class="col-sm-6"> <h1 data-i18n="historyPageTitle"></h1>  </div>
   <div class="col-sm-6" align="right"><br/>
 		
-	<a href="#" id="delete_all_button" class="btn btn-primary btn-sm">
-          <span class="glyphicon glyphicon-trash"></span> Effacer tout
+	<a href="#" id="delete_all_button" class="btn btn-primary btn-sm" data-i18n="deleteAllButton">
+          <span class="glyphicon glyphicon-trash"></span> 
         </a> 
 
-	<a href="#" id="export_button" class="btn btn-primary btn-sm">
-          <span class="glyphicon glyphicon-download-alt"></span> Exporter
+	<a href="#" id="export_button" class="btn btn-primary btn-sm" data-i18n="exportButton">
+          <span class="glyphicon glyphicon-download-alt"></span> 
         </a> 
 		
   </div>
@@ -72,15 +72,15 @@
 <table class="table table-condensed " >
 <thead>
 <tr>
-<th>Date</th>
-<th>Url</th>
-<th>Nombre de requêtes</th>
-<th>Taille (Kb) </th> 
-<th>Taille du DOM</th>
-<th>GES (gCO2e)</th>
-<th>Eau (cl) </th> 
-<th>EcoIndex</th> 
-<th>Note</th>
+<th data-i18n="date"></th>
+<th data-i18n="url"></th>
+<th data-i18n="requestNumber"></th>
+<th data-i18n="pageSize"></th> 
+<th data-i18n="domSize"></th>
+<th data-i18n="greenhouseGasesEmission"></th>
+<th data-i18n="waterConsumption"></th> 
+<th data-i18n="ecoIndex"></th> 
+<th data-i18n="grade"></th>
 <th></th>  
 </tr>
 </thead>
@@ -91,14 +91,15 @@
 <br/>
 <div class="row">
  <div class="col-sm-12" align="right">
-<a href="https://github.com/didierfred/ecoIndexPlugin" target="_blank">
-          <span class="glyphicon glyphicon-question-sign"></span> Aide
+<a href="https://github.com/didierfred/ecoIndexPlugin" target="_blank" data-i18n="helpLink">
+          <span class="glyphicon glyphicon-question-sign"></span> 
       </a> 
  </div>
 </div>
 
 </div>
 <script type="text/javascript" src="history.js"> </script> 
+<script type="text/javascript" src="i18n.js"> </script> 
 <br>
 <iframe id="download" width="0" height="0" frameBorder="0"> 
 </iframe>

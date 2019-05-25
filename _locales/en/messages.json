@@ -1,0 +1,86 @@
+{
+  "csvColumnsLabel": {
+    "message": "Date;Url;Request number;Size(kb);Dom size;Greenhouse Gases Emission (gCO2e);Water consumption;ecoIndex;Grade",
+    "description": "csvColumnsLabel"
+  },
+  "date": {
+    "message": "Date",
+    "description": "Date"
+  },
+  "deleteAllButton": {
+    "message": "Delete All",
+    "description": "Delete All Button"
+  },
+  "deleteAllConfirmMessage": {
+    "message": "Do you really want to delete all history ?",
+    "description": "Delete All Confirm Message"
+  },
+  "deleteButton": {
+    "message": "Delete",
+    "description": "Delete Button"
+  },
+  "domSize": {
+    "message": "Dom Size",
+    "description": "Dom Size"
+  },
+  "ecoIndex": {
+    "message": "EcoIndex",
+    "description": "EcoIndex"
+  },
+  "exportButton": {
+    "message": "Export",
+    "description": "Export Button"
+  },
+  "grade": {
+    "message": "Grade",
+    "description": "Grade"
+  },
+  "greenhouseGasesEmission": {
+    "message": "Greenhouse Gases Emission (gCO2e)",
+    "description": "Greenhouse Gases Emission (gCO2e)"
+  },
+  "helpLink": {
+    "message": "Help",
+    "description": "Help link"
+  },
+  "historyButton": {
+    "message": "History",
+    "description": "History Button"
+  },
+  "historyPageTitle": {
+    "message": "EcoIndex  - Analyse History",
+    "description": "History page title"
+  },
+  "pageSize": {
+    "message": "Page Size (Kb) ",
+    "description": "Page Size(Kb) ."
+  },
+  "pluginTitle": {
+    "message": "EcoIndex Plugin ",
+    "description": "Plugin title"
+  },
+  "requestNumber": {
+    "message": "Request number",
+    "description": "Number of request"
+  },
+  "resultButton": {
+    "message": "Result",
+    "description": "Result Button"
+  },
+  "startButton": {
+    "message": "Start",
+    "description": "Start Button"
+  },
+  "stopButton": {
+    "message": "Stop",
+    "description": "Stop Button"
+  },
+  "url": {
+    "message": "Url",
+    "description": "Url"
+  },
+  "waterConsumption": {
+    "message": "Water Consumption (cl)",
+    "description": "Water Consumption (cl)"
+  }
+}

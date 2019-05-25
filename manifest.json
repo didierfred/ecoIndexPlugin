@@ -21,6 +21,6 @@
     "default_icon": "icons/ecoindex-32.png",
     "default_title": "EcoIndex",
     "default_popup": "popup/ecoindex.html"
-  }
-
+  },
+  "default_locale": "en"
 }

@@ -52,7 +52,7 @@ function appendLine(result_date,url,request,size,dom,ges,water,ecoindex,note)
 	html = html + "<td>" + ecoindex + "</td>";
 	html = html + "<td>" + '<span class="note ' + note +'">' + note + '</span>'  + "</td>";
 
-	html = html +  "</td> <a href=\"#\" id=\"delete_button" + line_number + "\" class=\"btn btn-primary btn-sm\"> <span class=\"glyphicon glyphicon-trash\"></span> Effacer </a></td>"; 
+	html = html +  "</td> <a href=\"#\" id=\"delete_button" + line_number + "\" class=\"btn btn-primary btn-sm\"> <span class=\"glyphicon glyphicon-trash\"></span> " + browser.i18n.getMessage("deleteButton") + "</a></td>"; 
 
 //	html = html + "<td><input class=\"btn btn-primary btn-xs\" type=\"button\" value=\"Effacer\" id=\"delete_button" + line_number + "\"></input> </td>";
 
@@ -85,7 +85,7 @@ function delete_line(line_number_to_delete)
 
 function delete_all()
 	{
-	if (window.confirm("Voulez vous vraiment supprimer tout l'historique ?")) 
+	if (window.confirm(browser.i18n.getMessage("deleteAllConfirmMessage"))) 
 		{
 		localStorage.removeItem("analyse_history");
 		document.location.reload();
@@ -94,7 +94,7 @@ function delete_all()
 
 function create_csv()
 	{
-	var csv="Date;Url;Nombre requêtes;Taille(kb);Taille du dom;GES;Eau;ecoIndex;Note\n";
+	var csv= browser.i18n.getMessage("csvColumnsLabel") + "\n";
 	analyse_history.forEach(function(analyse)  
 		{
 		csv += analyse.result_date + ";\"" + analyse.url + "\";" + analyse.req +";" + analyse.kbyte + ";" + analyse.domsize + ";" + analyse.ges + ";" + analyse.water + ";" + analyse.eco_index + ";" + analyse.note + "\n";
