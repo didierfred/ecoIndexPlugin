@@ -1,4 +1,4 @@
-# Ecoindex V 0.4
+# Ecoindex V 0.5
 
 Extension pour firefox . 
 
