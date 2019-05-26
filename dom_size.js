@@ -5,11 +5,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. 
  *
  * @author didierfred@gmail.com
- * @version 0.1
  */
 
 var dom_size=document.getElementsByTagName("*").length;
-console.log("local dom size=" + dom_size)
 var message = {"dom_size":dom_size,"url":document.URL};
-console.log("url=" + document.URL);
 browser.runtime.sendMessage(JSON.stringify(message));

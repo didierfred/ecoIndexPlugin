@@ -12,7 +12,7 @@
         "description": "Delete All Button"
     },
     "deleteAllConfirmMessage": {
-        "message":  "Voulez vous vraiment supprimer tout l'historique ?",
+        "message": "Voulez vous vraiment supprimer tout l'historique ?",
         "description": "Delete All Confirm Message"
     },
     "deleteButton": {
@@ -46,7 +46,7 @@
     "historyButton": {
         "message": "Historique",
         "description": "History Button"
-      },
+    },
     "historyPageTitle": {
         "message": "EcoIndex  - Historique des analyses",
         "description": "History page title"
@@ -66,15 +66,15 @@
     "resultButton": {
         "message": "Résultat",
         "description": "Result Button"
-      },
+    },
     "startButton": {
         "message": "Démarrer",
         "description": "Start Button"
-      },
+    },
     "stopButton": {
         "message": "Stop",
         "description": "Stop Button"
-      },
+    },
     "url": {
         "message": "Url",
         "description": "Url"

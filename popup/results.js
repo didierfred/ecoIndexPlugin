@@ -5,17 +5,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. 
  *
  * @author didierfred@gmail.com
- * @version 0.1
  */
-
-
 
 window.onload = function() {
 
 	var url= localStorage.getItem('url');
 	var eco_index = localStorage.getItem('eco_index');
 	var note= localStorage.getItem('note');
-	//var newDiv = document.createElement("div");
 
 	var html ="<table class=\"table table-condensed\"> <tbody>";
 	html+="<tr><td>Url</td><td> " + url + "</td></tr>";
@@ -27,13 +23,7 @@ window.onload = function() {
 	html+="<tr><td>Eco Index </td><td>" + eco_index + "</td></tr>";
 	html+='<tr><td>' + browser.i18n.getMessage("grade") +  ' </td><td> <span class="note ' + note +'">' + note + '</span></td></tr></tbody></table>';
 	
-	console.log("html=" + html);
-	// newDiv.innerHTML =html;
-	
 	document.getElementById("result").innerHTML=html;
-	
-	//document.getElementById("result").appendChild(newDiv);
-
 } 
 
 

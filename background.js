@@ -42,64 +42,55 @@ m>>>24&255;this.i=x;C&&h<d.length&&(this.a=d=d.subarray(0,h));return d};var Pa=2
  END GZIP LIB
 **/
 
-
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  *
  * @author didierfred@gmail.com
- * @version 0.2
  */
 
 "use strict";
 
-
-var nb_request=0;
+var nb_request = 0;
 var byte_total = 0;
 
 var quantiles_dom = [0, 47, 75, 159, 233, 298, 358, 417, 476, 537, 603, 674, 753, 843, 949, 1076, 1237, 1459, 1801, 2479, 594601];
 var quantiles_req = [0, 2, 15, 25, 34, 42, 49, 56, 63, 70, 78, 86, 95, 105, 117, 130, 147, 170, 205, 281, 3920];
 var quantiles_size = [0, 1.37, 144.7, 319.53, 479.46, 631.97, 783.38, 937.91, 1098.62, 1265.47, 1448.32, 1648.27, 1876.08, 2142.06, 2465.37, 2866.31, 3401.59, 4155.73, 5400.08, 8037.54, 223212.26];
 
-
-localStorage.setItem('started',"off");
+localStorage.setItem('started', "off");
 
 // listen for start/stop and results messages
 browser.runtime.onMessage.addListener(notify);
 
-
-function calculQuantile(quantiles,value)
-{
-for (var i=1;i<quantiles.length;i++)
-	{
-	if (value<quantiles[i]) return (i + (value-quantiles[i-1])/(quantiles[i] -quantiles[i-1]));
+function calculQuantile(quantiles, value) {
+	for (var i = 1; i < quantiles.length; i++) {
+		if (value < quantiles[i]) return (i + (value - quantiles[i - 1]) / (quantiles[i] - quantiles[i - 1]));
 	}
-return quantiles.length;
+	return quantiles.length;
 }
 
 /**
 Calcul ecoIndex based on formula from web site www.ecoindex.fr
 **/
-function calculEcoIndex(dom,req,size)
-{
-var q_dom= calculQuantile(quantiles_dom,dom);
-var q_req= calculQuantile(quantiles_req,req);
-var q_size= calculQuantile(quantiles_size,size);
+function calculEcoIndex(dom, req, size) {
+	var q_dom = calculQuantile(quantiles_dom, dom);
+	var q_req = calculQuantile(quantiles_req, req);
+	var q_size = calculQuantile(quantiles_size, size);
 
-return Math.round(100 - 5 * (3*q_dom + 2*q_req + q_size)/6);
+	return Math.round(100 - 5 * (3 * q_dom + 2 * q_req + q_size) / 6);
 }
 
 
 
-function getNote(eco_index)
-{
-if (eco_index > 75) return "A";
-if (eco_index > 65) return "B";
-if (eco_index > 50) return "C";
-if (eco_index > 35) return "D";
-if (eco_index > 20) return "E";
-if (eco_index > 5) return "F";
-return "G";
+function getNote(eco_index) {
+	if (eco_index > 75) return "A";
+	if (eco_index > 65) return "B";
+	if (eco_index > 50) return "C";
+	if (eco_index > 35) return "D";
+	if (eco_index > 20) return "E";
+	if (eco_index > 5) return "F";
+	return "G";
 }
 
 
@@ -107,14 +98,12 @@ return "G";
 * Count the number of request
 *
 */
-function countRequest(e)
-{
+function countRequest(e) {
 
-// do not count url starting with data
-if (!e.url.startsWith("data"))
-	{
-	nb_request++;
-	//console.log("url N° " + nb_request+ ",id= " + e.requestID  + ",url= " + e.url);
+	// do not count url starting with data
+	if (!e.url.startsWith("data")) {
+		nb_request++;
+		//console.log("url N° " + nb_request+ ",id= " + e.requestID  + ",url= " + e.url);
 	}
 }
 
@@ -124,43 +113,40 @@ Mesure the size of data receveived from the server in bytes
 **/
 function mesureSize(details) {
 
-let filter = browser.webRequest.filterResponseData(details.requestId);
-var gzip_header=false;
-details.responseHeaders.forEach(function(header){
-    if (header.name.toLowerCase() == "content-encoding")
- 	{
-      	if (header.value.toLowerCase()== "gzip") gzip_header=true;
-    	}
-    });
+	let filter = browser.webRequest.filterResponseData(details.requestId);
+	var gzip_header = false;
+	details.responseHeaders.forEach(function (header) {
+		if (header.name.toLowerCase() == "content-encoding") {
+			if (header.value.toLowerCase() == "gzip") gzip_header = true;
+		}
+	});
 
-// if the data have been ungzip , gzip it again to know the real data volume been transfered
-if (gzip_header)
-	{
-  	filter.ondata = event => {
+	// if the data have been ungzip , gzip it again to know the real data volume been transfered
+	if (gzip_header) {
+		filter.ondata = event => {
 
-	// Gzip data to know the real transfer Kb
-	var gzip = new Zlib.Gzip(new Uint8Array(event.data));
-	var compressed = gzip.compress();
-	//console.log ("Mesure size after gzip  id=" +  details.requestId + ",url = " + details.url + " size=" + event.data.byteLength + " gzipsize=" + compressed.length);
-	byte_total = byte_total + compressed.length;
-	filter.write(event.data);
-  		}
+			// Gzip data to know the real transfer Kb
+			var gzip = new Zlib.Gzip(new Uint8Array(event.data));
+			var compressed = gzip.compress();
+			//console.log ("Mesure size after gzip  id=" +  details.requestId + ",url = " + details.url + " size=" + event.data.byteLength + " gzipsize=" + compressed.length);
+			byte_total = byte_total + compressed.length;
+			filter.write(event.data);
+		}
 	}
 
-else
-	{
-  	filter.ondata = event => {
-    	byte_total = byte_total + event.data.byteLength;
-    	//console.log("Mesure size  id=" +  details.requestId + ",url = " + details.url + ",size=" + event.data.byteLength);
-	filter.write(event.data);
-  		}
+	else {
+		filter.ondata = event => {
+			byte_total = byte_total + event.data.byteLength;
+			//console.log("Mesure size  id=" +  details.requestId + ",url = " + details.url + ",size=" + event.data.byteLength);
+			filter.write(event.data);
+		}
 	}
 
-  filter.onstop = event => {
-    filter.disconnect();
-  }
+	filter.onstop = event => {
+		filter.disconnect();
+	}
 
-  return {};
+	return {};
 }
 
 /*
@@ -169,99 +155,112 @@ else
 * if message is off : stop the record
 * if message is dom_size, calcul eco_index and store results in localstorage
 **/
-function notify(message)
-	{
+function notify(message) {
 	var json_message = JSON.parse(message);
-	if (json_message.status=="off")
-		{
+	if (json_message.status == "off") {
 		removeListener();
-		browser.browserAction.setIcon({ path: "icons/ecoindex-32.png"});
-		console.log("Stop the analyse : nb_request="+ nb_request);
-		console.log("Stop the analyse : byte_total="+ byte_total);
-		localStorage.setItem('nb_request',nb_request);
-		localStorage.setItem('byte_total',byte_total);
+		browser.browserAction.setIcon({ path: "icons/ecoindex-32.png" });
+		console.log("Ecoindex - nb_request =" + nb_request);
+		localStorage.setItem('nb_request', nb_request);
+		console.log("Ecoindex - byte_total =" + byte_total);
+		localStorage.setItem('byte_total', byte_total);
 		// launch a script to calculate the dom_size
 		browser.tabs.executeScript({
-					file: "dom_size.js"
-					});
+			file: "dom_size.js"
+		});
 		return;
-		}
+	}
 
-	if (json_message.status=="on")
-		{
+	if (json_message.status == "on") {
 		addListener();
-		browser.browserAction.setIcon({ path: "icons/ecoindex-green-32.png"});
-		nb_request=0;
+		browser.browserAction.setIcon({ path: "icons/ecoindex-green-32.png" });
+		nb_request = 0;
 		byte_total = 0;
-		console.log("Start the analyse");
+		console.log("EcoIndex - Start the analyse");
 		return
-		}
+	}
 
-	if (json_message.dom_size)
-		{
-	    console.log("Dom Size received: "+ json_message.dom_size);
-		localStorage.setItem("dom_size",json_message.dom_size);
-	    console.log("url: " + json_message.url);
-		localStorage.setItem("url",json_message.url);
+	if (json_message.dom_size) {
+		console.log("EcoIndex - Dom Size received: " + json_message.dom_size);
+		localStorage.setItem("dom_size", json_message.dom_size);
+		console.log("EcoIndex -  Url: " + json_message.url);
+		localStorage.setItem("url", json_message.url);
 
-		var eco_index= calculEcoIndex(json_message.dom_size,nb_request,Math.round(byte_total/1000));
+		var eco_index = calculEcoIndex(json_message.dom_size, nb_request, Math.round(byte_total / 1000));
 
-		console.log("ecoindex=" + eco_index);
-		localStorage.setItem("eco_index",eco_index);
-		localStorage.setItem("note",getNote(eco_index));
+		console.log("Ecoindex - ecoindex =" + eco_index);
+		localStorage.setItem("eco_index", eco_index);
+		localStorage.setItem("note", getNote(eco_index));
 
-		// GES & Water
+		// Compute GES & Water
 		var ges = Math.round(100 * (2 + 2 * (50 - eco_index) / 100)) / 100;
-		console.log("ges", ges);
-		localStorage.setItem("ges",ges);
+		console.log("Ecoindex - ges = ", ges);
+		localStorage.setItem("ges", ges);
 
-		
+
 		var water = Math.round(100 * (3 + 3 * (50 - eco_index) / 100)) / 100;
-		console.log("water", water);
-		localStorage.setItem("water",water);
+		console.log("Ecoindex - water", water);
+		localStorage.setItem("water", water);
 
 
-		storeInHistory(json_message.url,nb_request,Math.round(byte_total/1000),json_message.dom_size,ges,water,eco_index,getNote(eco_index));
-		}
-  	}
+		storeInHistory(json_message.url, nb_request, Math.round(byte_total / 1000), json_message.dom_size, ges, water, eco_index, getNote(eco_index));
+	}
+}
 
 /**
 Add to the history the result of an analyse
 **/
-function storeInHistory(url,req,kbyte,domsize,ges,water,eco_index,note)
-{
-var analyse_history;
-var string_analyse_history = localStorage.getItem("analyse_history");
+function storeInHistory(url, req, kbyte, domsize, ges, water, eco_index, note) {
+	var analyse_history;
+	var string_analyse_history = localStorage.getItem("analyse_history");
 
-if (string_analyse_history)
-	{
-	analyse_history =JSON.parse(string_analyse_history);
-	analyse_history.reverse();
-	analyse_history.push({result_date:new Date(),url:url,req:req,kbyte:kbyte,domsize:domsize,ges:ges,water:water,eco_index:eco_index,note:note});
-	analyse_history.reverse();
+	if (string_analyse_history) {
+		analyse_history = JSON.parse(string_analyse_history);
+		analyse_history.reverse();
+		analyse_history.push({
+			result_date: new Date(),
+			url: url,
+			req: req,
+			kbyte: kbyte,
+			domsize: domsize,
+			ges: ges,
+			water: water,
+			eco_index: eco_index,
+			note: note
+		});
+		analyse_history.reverse();
 	}
-else analyse_history = [{result_date:new Date(),url:url,req:req,kbyte:kbyte,domsize:domsize,ges:ges,water:water,eco_index:eco_index,note:note}];
+	else analyse_history = [{
+		result_date: new Date(),
+		url: url,
+		req: req,
+		kbyte: kbyte,
+		domsize: domsize,
+		ges: ges,
+		water: water,
+		eco_index: eco_index,
+		note: note
+	}];
 
-localStorage.setItem("analyse_history",JSON.stringify(analyse_history));
+	localStorage.setItem("analyse_history", JSON.stringify(analyse_history));
 }
 
 /**
 Add listener to count request and mesure size of data receveived
 **/
 
-function addListener()
-	{
-	var target ="<all_urls>";
+function addListener() {
+	var target = "<all_urls>";
 
 	browser.webRequest.onBeforeRequest.addListener(countRequest,
-                                          {urls: [target]});
+		{ urls: [target] });
 
 	browser.webRequest.onHeadersReceived.addListener(
-							mesureSize,
-							{urls: [target]},
-							["blocking", "responseHeaders"]
-							);
-	}
+		mesureSize,
+		{ urls: [target] },
+		["blocking", "responseHeaders"]
+	);
+}
 
 
 
@@ -269,10 +268,9 @@ function addListener()
 * Remove the two listener
 *
 */
-function removeListener()
-	{
+function removeListener() {
 	browser.webRequest.onBeforeRequest.removeListener(countRequest);
 	browser.webRequest.onBeforeRequest.removeListener(mesureSize);
-	}
+}
 
 
