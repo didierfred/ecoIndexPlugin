@@ -1,108 +1,69 @@
 <!DOCTYPE html>
 
 <html lang="fr">
-	<head>
+
+<head>
   <title>EcoIndex Plugin History</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="bootstrap.min.css"> 
-  
-  <style type="text/css"> 
-
-.note {
-    display:inline-block;
-    width:24px;
-    height:24px;
-    text-align:center;
-    border-radius:50%;
-    background-color:#f00;          
-    font-size: 18px;
-    line-height: 22px;
-}
-
-
-.note.A {
-    background-color:#349A47;
-    color:#fff;
-}
-.note.B {
-    background-color:#51B84B;
-    color:#fff;
-}
-.note.C {
-    background-color:#CADB2A
-}
-.note.D {
-    background-color:#F6EB15
-}
-.note.E {
-    background-color:#FECD06
-}
-.note.F {
-    background-color:#F99839;
-    color:#fff;
-}
-.note.G {
-    background-color:#ED2124;
-    color:#fff;
-}
-
-</style>
-  </head>
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/ecoindex.css">
+</head>
 
 <body>
 
-<div class="container-fluid">
-<div class="row">
-  <div class="col-sm-6"> <h1 data-i18n="historyPageTitle"></h1>  </div>
-  <div class="col-sm-6" align="right"><br/>
-		
-	<a href="#" id="delete_all_button" class="btn btn-primary btn-sm" data-i18n="deleteAllButton">
-          <span class="glyphicon glyphicon-trash"></span> 
-        </a> 
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
+        <h1 data-i18n="historyPageTitle"></h1>
+      </div>
+      <div class="col-sm-6"><br />
+        <a href="#" id="export_button" class="btn btn-primary btn-sm" data-i18n="exportButton" style="float:right">
+          <span class="glyphicon glyphicon-download-alt"></span>
+        </a>
+        <div style="float:right"> &nbsp </div>
+        <a href="#" id="delete_all_button" class="btn btn-primary btn-sm" data-i18n="deleteAllButton"
+          style="float:right">
+          <span class="glyphicon glyphicon-trash"></span>
+        </a>
+      </div>
+    </div>
+    <br>
 
-	<a href="#" id="export_button" class="btn btn-primary btn-sm" data-i18n="exportButton">
-          <span class="glyphicon glyphicon-download-alt"></span> 
-        </a> 
-		
+    <table class="table table-condensed ">
+      <thead>
+        <tr>
+          <th data-i18n="date"></th>
+          <th data-i18n="url"></th>
+          <th data-i18n="requestNumber"></th>
+          <th data-i18n="pageSize"></th>
+          <th data-i18n="domSize"></th>
+          <th data-i18n="greenhouseGasesEmission"></th>
+          <th data-i18n="waterConsumption"></th>
+          <th data-i18n="ecoIndex"></th>
+          <th data-i18n="grade"></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="history">
+      </tbody>
+    </table>
+    <br />
+    <br />
+    <div class="row">
+      <div class="col-sm-12">
+        <a href="https://github.com/didierfred/ecoIndexPlugin" target="_blank" data-i18n="helpLink" style="float:right">
+          <span class="glyphicon glyphicon-question-sign"></span>
+        </a>
+      </div>
+    </div>
+
   </div>
-</div>
-<br>
-
-<table class="table table-condensed " >
-<thead>
-<tr>
-<th data-i18n="date"></th>
-<th data-i18n="url"></th>
-<th data-i18n="requestNumber"></th>
-<th data-i18n="pageSize"></th> 
-<th data-i18n="domSize"></th>
-<th data-i18n="greenhouseGasesEmission"></th>
-<th data-i18n="waterConsumption"></th> 
-<th data-i18n="ecoIndex"></th> 
-<th data-i18n="grade"></th>
-<th></th>  
-</tr>
-</thead>
-<tbody id="history">
-</tbody>
-</table>
-<br/>
-<br/>
-<div class="row">
- <div class="col-sm-12" align="right">
-<a href="https://github.com/didierfred/ecoIndexPlugin" target="_blank" data-i18n="helpLink">
-          <span class="glyphicon glyphicon-question-sign"></span> 
-      </a> 
- </div>
-</div>
-
-</div>
-<script type="text/javascript" src="history.js"> </script> 
-<script type="text/javascript" src="i18n.js"> </script> 
-<br>
-<iframe id="download" width="0" height="0" frameBorder="0"> 
-</iframe>
+  <script type="text/javascript" src="history.js"> </script>
+  <script type="text/javascript" src="i18n.js"> </script>
+  <br>
+  <iframe id="download" width="0" height="0" class="noborder" title="Frame for downloading">
+  </iframe>
 </body>
 
 </html>
